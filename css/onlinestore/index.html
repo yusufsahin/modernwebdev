@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Online Store</title>
+    <style>
+        /* Genel Stiller */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F5F5F5;
+            color: #212121;
+        }
+
+        /* Üst Menü */
+        .header {
+            background-color: #0D47A1;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo a {
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FFC107;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .user-actions a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Sol Kategori Paneli */
+        .categories {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 250px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .categories h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #0D47A1;
+        }
+
+        .categories ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .categories ul li {
+            margin-bottom: 10px;
+        }
+
+        .categories ul li a {
+            text-decoration: none;
+            color: #212121;
+            font-size: 1rem;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .categories ul li a:hover {
+            background-color: #F5F5F5;
+            color: #0D47A1;
+        }
+
+        /* Ana İçerik */
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 20px;
+            padding-left: 270px;
+        }
+
+        /* Ürünler */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #0D47A1;
+        }
+
+        .product-card .price {
+            font-size: 1.2rem;
+            color: #212121;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background-color: #0D47A1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #002171;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0D47A1;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .footer h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #FFC107;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .footer ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid #FFC107;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Üst Menü -->
+    <header class="header">
+        <div class="logo"><a href="index.html">Elegant Store</a></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="#">🛒</a>
+            <a href="#">👤</a>
+        </div>
+    </header>
+
+    <!-- Kategoriler -->
+    <aside class="categories">
+        <h3>Categories</h3>
+        <ul>
+            <li><a href="#">All Products</a></li>
+            <li><a href="#">Electronics</a></li>
+            <li><a href="#">Fashion</a></li>
+            <li><a href="#">Home & Living</a></li>
+            <li><a href="#">Sports</a></li>
+        </ul>
+    </aside>
+
+    <!-- Ana İçerik -->
+    <div class="container">
+        <!-- Ürünler -->
+        <section class="products">
+            <!-- Ürün Kartları -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Wireless Earbuds">
+                <h3>Wireless Earbuds</h3>
+                <p class="price">$49.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Smartphone">
+                <h3>Smartphone</h3>
+                <p class="price">$299.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Smart TV">
+                <h3>Smart TV</h3>
+                <p class="price">$799.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Bluetooth Speaker">
+                <h3>Bluetooth Speaker</h3>
+                <p class="price">$99.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Gaming Laptop">
+                <h3>Gaming Laptop</h3>
+                <p class="price">$1299.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Smartwatch">
+                <h3>Smartwatch</h3>
+                <p class="price">$199.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Gaming Headset">
+                <h3>Gaming Headset</h3>
+                <p class="price">$79.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Wireless Keyboard">
+                <h3>Wireless Keyboard</h3>
+                <p class="price">$59.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Action Camera">
+                <h3>Action Camera</h3>
+                <p class="price">$299.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Drone">
+                <h3>Drone</h3>
+                <p class="price">$999.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Tablet">
+                <h3>Tablet</h3>
+                <p class="price">$249.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Wireless Mouse">
+                <h3>Wireless Mouse</h3>
+                <p class="price">$39.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Gaming Chair">
+                <h3>Gaming Chair</h3>
+                <p class="price">$199.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Monitor">
+                <h3>Monitor</h3>
+                <p class="price">$399.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Printer">
+                <h3>Printer</h3>
+                <p class="price">$149.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Smart Lights">
+                <h3>Smart Lights</h3>
+                <p class="price">$89.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Fitness Tracker">
+                <h3>Fitness Tracker</h3>
+                <p class="price">$99.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="External SSD">
+                <h3>External SSD</h3>
+                <p class="price">$149.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Portable Power Bank">
+                <h3>Portable Power Bank</h3>
+                <p class="price">$49.99</p>
+                <button class="btn-secondary">Quick View</button>
+                <button class="btn-secondary">Add to Cart</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-columns">
+            <div>
+                <h4>About Us</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="#">Customer Support</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Elegant Store. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

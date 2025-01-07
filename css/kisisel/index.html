@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kişisel Portföy</title>
+    <style>
+        /* Genel Stiller */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F5F5F5;
+            color: #212121;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            background-color: #004D40;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #40E0D0; /* Turkuaz */
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #40E0D0; /* Turkuaz */
+        }
+
+        /* Hero Bölümü */
+        .hero {
+            background: linear-gradient(135deg, #004D40 60%, #00796B);
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-top: 70px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .hero p {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .btn-primary {
+            background-color: #40E0D0; /* Turkuaz */
+            color: #004D40;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #98FF98; /* Mint Yeşili */
+        }
+
+        /* Projeler */
+        .projects {
+            padding: 50px 20px;
+            background-color: #E8F5E9;
+            text-align: center;
+        }
+
+        .projects h2 {
+            margin-bottom: 30px;
+            color: #004D40;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card img {
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            color: #004D40;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* İletişim Bölümü */
+        .contact {
+            padding: 50px 20px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 20px;
+            color: #004D40;
+        }
+
+        .contact form {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #004D40;
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            outline: none;
+            border: 1px solid #40E0D0;
+            box-shadow: 0 0 4px rgba(64, 224, 208, 0.5);
+        }
+
+        .contact button {
+            background-color: #004D40;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact button:hover {
+            background-color: #40E0D0;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #004D40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer a {
+            color: #40E0D0;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            color: #98FF98;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>Kişisel Portföy</h1>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav class="nav">
+            <a href="#hero">Ana Sayfa</a>
+            <a href="#about">Hakkımda</a>
+            <a href="#projects">Projeler</a>
+            <a href="#contact">İletişim</a>
+        </nav>
+    </header>
+
+    <!-- Hero Bölümü -->
+    <section id="hero" class="hero">
+        <h2>Merhaba! Ben [Adınız]</h2>
+        <p>Modern, kullanıcı dostu ve yaratıcı web siteleri geliştiriyorum.</p>
+        <a href="#projects" class="btn-primary">Projelerimi Gör</a>
+    </section>
+
+    <!-- Projeler -->
+    <section id="projects" class="projects">
+        <h2>Projelerim</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>E-Ticaret Platformu</h3>
+                <p>Kapsamlı bir e-ticaret çözümü. Laravel ve React ile geliştirilmiştir.</p>
+            </div>
+            <div class="project-card">
+                <h3>Blog Web Sitesi</h3>
+                <p>Kullanıcı dostu bir blog platformu. HTML, CSS ve Vanilla JavaScript ile oluşturulmuştur.</p>
+            </div>
+            <div class="project-card">
+                <h3>Kişisel Portföy</h3>
+                <p>Bu portföy web sitesi, modern tasarım teknikleriyle yapılmıştır.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim -->
+    <section id="contact" class="contact">
+        <h2>İletişim</h2>
+        <form action="#">
+            <label for="name">Adınız</label>
+            <input type="text" id="name" name="name" placeholder="Adınızı Girin" required>
+            
+            <label for="email">E-posta</label>
+            <input type="email" id="email" name="email" placeholder="E-postanızı Girin" required>
+            
+            <label for="message">Mesajınız</label>
+            <textarea id="message" name="message" rows="5" placeholder="Mesajınızı Yazın" required></textarea>
+            
+            <button type="submit">Gönder</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Kişisel Portföy. Tüm Hakları Saklıdır.</p>
+        <div>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
