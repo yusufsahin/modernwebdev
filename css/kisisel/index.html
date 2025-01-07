@@ -234,22 +234,36 @@
 
         /* Responsive Tasarım */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
+    .menu-toggle {
+        display: block;
+    }
 
-            .nav {
-                display: none;
-            }
+    .nav {
+        display: none;
+        flex-direction: column;
+        background-color: #004D40;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-            .hero h2 {
-                font-size: 2rem;
-            }
+    .nav.active {
+        display: flex;
+    }
 
-            .hero p {
-                font-size: 1rem;
-            }
-        }
+    .nav a {
+        padding: 10px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: left;
+    }
+
+    .nav a:last-child {
+        border-bottom: none;
+    }
+}
+
     </style>
 </head>
 <body>
