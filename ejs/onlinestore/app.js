@@ -4,7 +4,7 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const indexRoutes= require('./routes/indexRoutes');
 const productRoutes= require('./routes/productRoutes');
-
+const cartRoutes = require('./routes/cartRoutes');
 dotenv.config();
 const app = express();
 
@@ -24,6 +24,7 @@ app.use((req,res,next)=>{
 
 app.use('/',indexRoutes);
 app.use('/products',productRoutes);
+app.use('/cart', cartRoutes);
 
 const PORT = process.env.PORT || 3010;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

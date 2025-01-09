@@ -31,6 +31,12 @@
                                 <p>
                                     <%= product.description %>
                                 </p>
+                                <form action="/cart/add" method="POST">
+                                    <input type="hidden" name="productId" value="<%= product.id %>">
+                                    <input type="hidden" name="productName" value="<%= product.name %>">
+                                    <input type="hidden" name="price" value="<%= product.price %>">
+                                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                                  </form>
                     </div>
                     <% } else { %>
                         <div class="p-4 rounded">
@@ -52,6 +58,12 @@
                                                 <p class="card-text">
                                                     <%= product.description %>
                                                 </p>
+                                                <form action="/cart/add" method="POST">
+                                                    <input type="hidden" name="productId" value="<%= product.id %>">
+                                                    <input type="hidden" name="productName" value="<%= product.name %>">
+                                                    <input type="hidden" name="price" value="<%= product.price %>">
+                                                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                                                  </form>
 
                                             </div>
                                         </div>
