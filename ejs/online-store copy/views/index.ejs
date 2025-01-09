@@ -1,0 +1,58 @@
+
+<%- include('partials/header'); %>
+<div class="container mt-4">
+  <div class="row">
+    <!-- Sol Taraf: Kategoriler -->
+    <div class="col-md-3">
+      <h4>Categories</h4>
+      <ul class="list-group" id="categoryList">
+        <% categories.forEach(category => { %>
+          <li class="list-group-item category-item <%= selectedCategory == category.id ? 'active' : '' %>" data-id="<%= category.id %>">
+            <%= category.name %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <!-- Sağ Taraf: Ürünler -->
+    <div class="col-md-9">
+      <div id="productsContainer" class="row">
+        <% products.forEach(product => { %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text">Price: $<%= product.price %></p>
+                <button class="btn btn-info view-details" data-id="<%= product.id %>">View Details</button>
+                <!-- Sepete Ekleme Formu -->
+      <form action="/cart/add" method="POST" class="add-to-cart-form mt-auto">
+        <input type="hidden" name="productId" value="<%= product.id %>">
+        <input type="hidden" name="productName" value="<%= product.name %>">
+        <input type="hidden" name="price" value="<%= product.price %>">
+        <button type="submit" class="btn btn-success btn-block">Add to Cart</button>
+      </form>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Product Details -->
+<div id="productModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Product details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer'); %>

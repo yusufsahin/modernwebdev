@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONPlaceholder ile Görev Listesi</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        #loading {
+            display: none;
+            font-size: 1.2em;
+            color: blue;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="todoApp">
+        <h1>JSONPlaceholder Görev Listesi</h1>
+        <p id="loading">Yükleniyor...</p>
+        <input type="text" id="taskInput" placeholder="Görev ekleyin">
+        <button id="addTask">Ekle</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // Görevleri yükleme
+            function loadTasks() {
+                $("#loading").show();
+                $.get("https://jsonplaceholder.typicode.com/todos?_limit=10", function(tasks) {
+                    tasks.forEach(task => {
+                        addTaskToList(task.title, task.completed);
+                    });
+                    $("#loading").hide();
+                });
+            }
+
+            // Listeye görev ekleme
+            function addTaskToList(task, completed = false) {
+                const taskClass = completed ? "completed" : "";
+                $("#taskList").append(`
+                    <li>
+                        <span class="task ${taskClass}">${task}</span>
+                        <button class="completeTask">${completed ? "Geri Al" : "Tamamla"}</button>
+                        <button class="deleteTask">Sil</button>
+                    </li>
+                `).hide().fadeIn();
+            }
+
+            // Görev ekleme işlemi
+            $("#addTask").click(function() {
+                const task = $("#taskInput").val();
+                if (task) {
+                    // Sunucuya gönderme
+                    $.post("https://jsonplaceholder.typicode.com/todos", {
+                        title: task,
+                        completed: false
+                    }, function(newTask) {
+                        addTaskToList(newTask.title);
+                        $("#taskInput").val("");
+                    });
+                }
+            });
+
+            // Görev tamamlama veya geri alma
+            $("#taskList").on("click", ".completeTask", function() {
+                const taskElement = $(this).siblings(".task");
+                taskElement.toggleClass("completed");
+                $(this).text(taskElement.hasClass("completed") ? "Geri Al" : "Tamamla");
+            });
+
+            // Görev silme
+            $("#taskList").on("click", ".deleteTask", function() {
+                $(this).parent().fadeOut(function() {
+                    $(this).remove();
+                });
+            });
+
+            // Görevleri yükle
+            loadTasks();
+        });
+    </script>
+</body>
+</html>

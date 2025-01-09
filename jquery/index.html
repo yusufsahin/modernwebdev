@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Listesi</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="todoApp">
+        <h1>Görev Listesi</h1>
+        <input type="text" id="taskInput" placeholder="Görev ekleyin">
+        <button id="addTask">Ekle</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        $("#addTask").click(function() {
+            let task = $("#taskInput").val();
+            if (task) {
+                $("#taskList").append(`
+                    <li>
+                        <span class="task">${task}</span>
+                        <button class="completeTask">Tamamla</button>
+                        <button class="deleteTask">Sil</button>
+                    </li>
+                `);
+                $("#taskInput").val("");
+            }
+        });
+
+        $("#taskList").on("click", ".completeTask", function() {
+            $(this).siblings(".task").toggleClass("completed");
+            $(this).text($(this).text() === "Tamamla" ? "Geri Al" : "Tamamla");
+        });
+
+        $("#taskList").on("click", ".deleteTask", function() {
+            $(this).parent().remove();
+        });
+    </script>
+</body>
+</html>
