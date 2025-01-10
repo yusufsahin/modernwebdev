@@ -1,0 +1,39 @@
+<%- include('../partials/header'); %>
+
+<div class="container mt-4" id="cartContainer">
+    <h2>Your Cart</h2>
+    <% if (cart.length > 0) { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cart.forEach(item => { %>
+                    <tr>
+                        <td><%= item.name %></td>
+                        <td>$<%= item.price.toFixed(2) %></td>
+                        <td><%= item.quantity %></td>
+                        <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                        <td>
+                            <button 
+                                class="btn btn-danger remove-from-cart" 
+                                data-id="<%= item.productId %>">Remove</button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>Your cart is empty.</p>
+    <% } %>
+</div>
+
+<div id="notificationContainer"></div>
+
+<%- include('../partials/footer'); %>

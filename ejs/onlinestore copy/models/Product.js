@@ -14,8 +14,15 @@ class Product{
 
     static async getById(productId) {
         const [product] = await db.query('SELECT * FROM products WHERE id = ?', [productId]);
-        return product[0];
-      }
+
+        // Dönen verinin sayısal alanlarını dönüştür
+        if (product.length > 0) {
+            product[0].price = parseFloat(product[0].price); // Fiyatı sayıya dönüştür
+            return product[0];
+        }
+
+        return null;
+    }
 }
 
 module.exports=Product;

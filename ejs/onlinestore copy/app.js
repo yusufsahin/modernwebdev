@@ -1,30 +1,36 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const dotenv = require('dotenv');
-const indexRoutes= require('./routes/indexRoutes');
-const productRoutes= require('./routes/productRoutes');
+const apiRoutes = require('./routes/apiRoutes');
+const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-dotenv.config();
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.set("view engine","ejs");
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static("public"));
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'secret-key', resave: false, saveUninitialized: true }));
 
-app.use(session({
-    secret:'store-secret',
-    resave:false,
-    saveUninitialized:true
-}));
-app.use((req,res,next)=>{
-    res.locals.cart=req.session.cart || [];
+// Tüm şablonlara sepeti geçmek için middleware
+app.use((req, res, next) => {
+    res.locals.cart = req.session.cart || [];
     next();
-})
+});
 
-app.use('/',indexRoutes);
-app.use('/products',productRoutes);
+// View Engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Routes
+app.use('/api', apiRoutes);
+app.use('/', productRoutes);
 app.use('/cart', cartRoutes);
 
-const PORT = process.env.PORT || 3010;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Start Server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
